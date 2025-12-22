@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>GitUptimeHub設定ファイルジェネレーター</title>
+<style>
+body { font-family: sans-serif; background:#fff; color:#222; margin:0; padding:20px; }
+h1,h2 { margin:10px 0; }
+section { margin-bottom:20px; border:1px solid #555; padding:10px; border-radius:5px; }
+label { display:block; margin-top:5px; }
+input, select, textarea { width:100%; margin-top:2px; padding: 10px 10px; }
+button { margin-top:5px; }
+textarea { height:200px; background:#111; color:#eee; }
+hr { border:1px solid #555; margin:10px 0; }
+</style>
+</head>
+<body>
+
+<h1>GitUptimeHub設定ファイルジェネレーター</h1>
+
+<section>
+  <h2>JSONくぉインポート</h2>
+  <input type="file" id="import-file" accept=".json">
+  <textarea id="import-text" placeholder="ここにJSONを貼り付けてもインポートできます"></textarea>
+  <button onclick="importFromText()">文字列からインポート</button>
+</section>
+
+<section id="meta-section">
+  <h2>基本情報</h2>
+  <div id="meta-fields"></div>
+</section>
+
+<section id="categories-section">
+  <h2>カテゴリー</h2>
+  <p>表示するときのカテゴリーです。</p>
+  <div id="categories-list"></div>
+  <button onclick="addCategory()">カテゴリーを追加</button>
+</section>
+
+<section id="targets-section">
+  <h2>ターゲット</h2>
+  <p>監視対象を設定します。</p>
+  <div id="targets-list"></div>
+  <button onclick="addTarget()">Add Target</button>
+</section>
+
+<section>
+  <h2>出力</h2>
+  <textarea id="output-json" readonly></textarea>
+  <button onclick="downloadJSON()">保存</button>
+</section>
+
+<script>
+// 初期データ
+let data = {
+  meta: {
+    title: "KOTOCA",
+    logo: "https://kotoca.net/KOTOCA.webp",
+    favicon: "https://kotoca.net/KOTOCA.webp",
+    theme: "dark",
+    color: { theme: "#feeeee", sub: "#feeeee", font: "#feeeee" },
+    footer_links: [{label:"Website",url:"https://kotoca.net"},{label:"contact",url:"mailto:contact@kotoca.net"}]
+  },
+  categories: [{id:"default",label:"default"},{id:"kotoca_services",label:"内部サービス"}],
+  targets: [
+    {
+      label: "kotoca公式サイト",
+      category: "kotoca_services",
+      type: "self",
+      meta: {
+        url: "https://kotoca.net",
+        host: "kotoca.net",
+        http:true,
+        head:true,
+        restime:true,
+        dns:true,
+        tcp:{port:443},
+        ping:true,
+        theme:"dark"
+      }
+    }
+  ]
+};
+
+// provider候補
+const providers = [
+  {provider:"github",service:"actions"},
+  {provider:"render",service:"dashboard"},
+  {provider:"cloudflare",service:"workers"},
+  {provider:"dropbox",service:"website"},
+  {provider:"notion",service:"api"},
+  {provider:"openai",service:"api"},
+  {provider:"discord",service:"api"},
+  {provider:"x",service:"gnip"}
+];
+
+// レンダリング
+function render() {
+  renderMeta();
+  renderCategories();
+  renderTargets();
+  updateOutput();
+}
+
+// --- Meta ---
+function renderMeta(){
+  const container = document.getElementById("meta-fields");
+  container.innerHTML = "";
+
+  ["title","logo","favicon","theme"].forEach(k=>{
+    const label = document.createElement("label");
+    label.innerHTML = `${k}: <input value="${data.meta[k]}" oninput="updateMeta('${k}', this.value)">`;
+    container.appendChild(label);
+  });
+
+  ["theme","sub","font"].forEach(c=>{
+    const label = document.createElement("label");
+    label.innerHTML = `color.${c}: <input value="${data.meta.color[c]}" oninput="updateMetaColor('${c}', this.value)">`;
+    container.appendChild(label);
+  });
+
+  data.meta.footer_links.forEach((fl,i)=>{
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <label>Footer label: <input value="${fl.label}" oninput="updateFooter(${i}, 'label', this.value)"></label>
+      <label>Footer URL: <input value="${fl.url}" oninput="updateFooter(${i}, 'url', this.value)"></label>
+      <button onclick="removeFooter(${i})">Delete Footer</button>
+    `;
+    container.appendChild(div);
+  });
+  const addBtn = document.createElement("button");
+  addBtn.textContent = "Add Footer Link";
+  addBtn.onclick = ()=>{data.meta.footer_links.push({label:"",url:""}); render();};
+  container.appendChild(addBtn);
+}
+
+function updateMeta(key,value){ data.meta[key]=value; render(); }
+function updateMetaColor(key,value){ data.meta.color[key]=value; render(); }
+function updateFooter(i,key,value){ data.meta.footer_links[i][key]=value; render(); }
+function removeFooter(i){ data.meta.footer_links.splice(i,1); render(); }
+
+// --- Categories ---
+function renderCategories(){
+  const container = document.getElementById("categories-list");
+  container.innerHTML = "";
+  data.categories.forEach((c,i)=>{
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <label>Label: <input value="${c.label}" oninput="updateCategory(${i}, this.value)"></label>
+      ${c.id!=="default"?`<button onclick="removeCategory(${i})">Delete</button>`:""}
+    `;
+    container.appendChild(div);
+  });
+}
+
+function addCategory(){ const id="cat_"+Date.now(); data.categories.push({id,label:"New Category"}); render(); }
+function removeCategory(i){ data.categories.splice(i,1); render(); }
+function updateCategory(i,value){ data.categories[i].label=value; render(); }
+
+// --- Targets ---
+function renderTargets(){
+  const container = document.getElementById("targets-list");
+  container.innerHTML="";
+  data.targets.forEach((t,i)=>{
+    const div = document.createElement("div");
+    let categoryOptions = data.categories.map(c=>`<option value="${c.id}" ${c.id===t.category?"selected":""}>${c.label}</option>`).join("");
+    // type selector
+    let typeSelect = `<label>Type: 
+      <select onchange="updateTargetType(${i}, this.value)">
+        <option value="self" ${t.type==='self'?'selected':''}>self</option>
+        <option value="provider" ${t.type==='provider'?'selected':''}>provider</option>
+      </select>
+    </label>`;
+
+    if(t.type==="self"){
+      div.innerHTML=typeSelect+`
+        <label>Label: <input value="${t.label}" oninput="updateTargetLabel(${i},this.value)"></label>
+        <label>Category: <select onchange="updateTargetCategory(${i},this.value)">${categoryOptions}</select></label>
+        <label>URL: <input value="${t.meta.url}" oninput="updateTargetMeta(${i},'url',this.value)"></label>
+        <label>TCP Port: <input type="number" value="${t.meta.tcp.port}" oninput="updateTargetMetaTCP(${i},this.value)"></label>
+        <label>HTTP: <input type="checkbox" ${t.meta.http?"checked":""} onchange="updateTargetMetaToggle(${i},'http',this.checked)"></label>
+        <label>HEAD: <input type="checkbox" ${t.meta.head?"checked":""} onchange="updateTargetMetaToggle(${i},'head',this.checked)"></label>
+        <label>Restime: <input type="checkbox" ${t.meta.restime?"checked":""} onchange="updateTargetMetaToggle(${i},'restime',this.checked)"></label>
+        <label>DNS: <input type="checkbox" ${t.meta.dns?"checked":""} onchange="updateTargetMetaToggle(${i},'dns',this.checked)"></label>
+        <label>Ping: <input type="checkbox" ${t.meta.ping?"checked":""} onchange="updateTargetMetaToggle(${i},'ping',this.checked)"></label>
+        
+        <button onclick="removeTarget(${i})">Delete Target</button>
+      `;
+    } else {
+      let providerOptions = providers.map(p=>`<option value="${p.provider}" ${p.provider===t.meta.provider?"selected":""}>${p.provider}</option>`).join("");
+      let serviceOptions = providers.map(p=>`<option value="${p.service}" ${p.service===t.meta.service?"selected":""}>${p.service}</option>`).join("");
+      div.innerHTML=typeSelect+`
+        <label>Label: <input value="${t.label}" oninput="updateTargetLabel(${i},this.value)"></label>
+        <label>Category: <select onchange="updateTargetCategory(${i},this.value)">${categoryOptions}</select></label>
+        <label>Provider: <select onchange="updateTargetMeta(${i},'provider',this.value)">${providerOptions}</select></label>
+        <label>Service: <select onchange="updateTargetMeta(${i},'service',this.value)">${serviceOptions}</select></label>
+        
+        <button onclick="removeTarget(${i})">Delete Target</button>
+      `;
+    }
+    container.appendChild(div);
+    container.appendChild(document.createElement("hr"));
+  });
+}
+
+function addTarget(){
+  data.targets.push({
+    label:"New Target",
+    category:data.categories[0].id,
+    type:"self",
+    meta:{url:"",host:"",http:true,head:true,restime:true,dns:true,tcp:{port:80},ping:true,theme:"dark"}
+  });
+  render();
+}
+function removeTarget(i){ data.targets.splice(i,1); render(); }
+function updateTargetLabel(i,v){ data.targets[i].label=v; render(); }
+function updateTargetCategory(i,v){ data.targets[i].category=v; render(); }
+function updateTargetMeta(i,k,v){ data.targets[i].meta[k]=v; render(); }
+function updateTargetMetaTCP(i,v){ data.targets[i].meta.tcp.port=Number(v); render(); }
+function updateTargetMetaToggle(i,k,checked){ data.targets[i].meta[k]=checked; render(); }
+function updateTargetType(i,v){
+  data.targets[i].type = v;
+  // providerならmetaにprovider/serviceを初期化
+  if(v==="provider"){
+    data.targets[i].meta.provider = providers[0].provider;
+    data.targets[i].meta.service = providers[0].service;
+    delete data.targets[i].meta.url;
+    delete data.targets[i].meta.host;
+    delete data.targets[i].meta.http;
+    delete data.targets[i].meta.head;
+    delete data.targets[i].meta.restime;
+    delete data.targets[i].meta.dns;
+    delete data.targets[i].meta.tcp;
+    delete data.targets[i].meta.ping;
+  } else {
+    data.targets[i].meta = {url:"",host:"",http:true,head:true,restime:true,dns:true,tcp:{port:80},ping:true,theme:"dark"};
+  }
+  render();
+}
+
+// --- Output ---
+function updateOutput(){ document.getElementById("output-json").value=JSON.stringify(data,null,2); }
+
+// --- Import from File ---
+document.getElementById("import-file").addEventListener("change",e=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = evt=>{
+    try{
+      const json = JSON.parse(evt.target.result);
+      data=json;
+      render();
+    }catch(err){ alert("Invalid JSON"); }
+  };
+  reader.readAsText(file);
+});
+
+// --- Import from Textarea ---
+function importFromText(){
+  const text = document.getElementById("import-text").value;
+  try{
+    const json = JSON.parse(text);
+    data = json;
+    render();
+  }catch(err){ alert("Invalid JSON"); }
+}
+
+// --- Download ---
+function downloadJSON(){
+  const blob = new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href=url;
+  a.download="data.json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+render();
+</script>
+
+</body>
+</html>
