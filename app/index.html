@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>GitUptimeHub設定ファイルジェネレーター</title>
+<style>
+body { font-family: sans-serif; background:#fff; color:#222; margin:0; padding:20px; }
+h1,h2 { margin:10px 0; }
+section { margin-bottom:20px; border:1px solid #555; padding:10px; border-radius:5px; }
+label { display:block; margin-top:5px; }
+input, select, textarea { width:100%; margin-top:2px; padding:10px; }
+button { margin-top:5px; }
+textarea { height:200px; background:#111; color:#eee; }
+hr { border:1px solid #555; margin:10px 0; }
+.target { padding:10px; border:1px solid #777; border-radius:5px; margin-bottom:10px; }
+</style>
+</head>
+<body>
+
+<dialog id="whereisrepo">
+  <label>
+    GitHubユーザー名
+    <input type="text">
+  </label>
+  <label>
+    リポジトリ名
+    <input type="text">
+  </label>
+  <button onclick="closerepodig()">決定</button>
+</dialog>
+
+<h1>GitUptimeHub設定ファイルジェネレーター</h1>
+
+<section>
+  <h2>JSONインポート</h2>
+  <input type="file" id="import-file" accept=".json">
+  <textarea id="import-text" placeholder="ここにJSONを貼り付けてもインポートできます"></textarea>
+  <button id="import-text-btn">文字列からインポート</button>
+</section>
+
+<section>
+  <h2>基本情報</h2>
+  <div id="meta-fields"></div>
+</section>
+
+<section>
+  <h2>カテゴリー</h2>
+  <div id="categories-list"></div>
+  <button id="add-category">カテゴリーを追加</button>
+</section>
+
+<section>
+  <h2>ターゲット</h2>
+  <div id="targets-list"></div>
+  <button id="add-target">Add Target</button>
+</section>
+
+<section>
+  <h2>出力</h2>
+  <textarea id="output-json" readonly></textarea>
+  <button id="download-json">保存</button>
+</section>
+
+<script src="./script.js"></script>
+<script src="./common.js"></script>
+
+</body>
+</html>
