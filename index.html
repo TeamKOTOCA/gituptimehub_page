@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GitUptimeHub | GitHubだけで完結するステータスページ</title>
+<link rel="stylesheet" href="./assets/style.css">
+</head>
+
+<body>
+
+<header>
+</header>
+
+<section class="container hero">
+  <h1>GitUptimeHub</h1>
+  <p>GitHub Actions だけで構築する、<br><strong>完全セルフホスト型ステータスページ基盤</strong></p>
+  <img src="./assets/topimg.png" alt="GitUptimeHub overview">
+  <a class="button" href="https://github.com/TeamKOTOCA/Gituptimehub/fork">GitHubで始める</a>
+</section>
+
+<section class="container">
+  <h2>GitUptimeHub とは？</h2>
+  <p>
+    GitUptimeHub は、GitHub Actions を実行基盤として利用し、
+    サービスの稼働状況を監視・記録・公開するためのオープンソースプロジェクトです。
+  </p>
+  <p>
+    外部の監視SaaSや専用サーバーを一切必要とせず、
+    <strong>GitHub リポジトリひとつで「公式ステータスページ」を持つ</strong>ことができます。
+  </p>
+</section>
+
+<section class="container section-alt">
+  <h2>なぜ GitUptimeHub なのか</h2>
+  <div class="grid">
+    <div class="card">
+      <span class="badge">Zero Server</span>
+      <h3>サーバー不要</h3>
+      <p>
+        常駐プロセスやVPSは不要。  
+        GitHub Actions の cron 実行のみで監視が完結します。
+      </p>
+    </div>
+    <div class="card">
+      <span class="badge">OSS</span>
+      <h3>完全オープンソース</h3>
+      <p>
+        挙動はすべてコードで確認可能。  
+        ブラックボックスな監視とは無縁です。
+      </p>
+    </div>
+    <div class="card">
+      <span class="badge">Cost Free</span>
+      <h3>無料で運用可能</h3>
+      <p>
+        GitHub Free プランの範囲内で運用可能。  
+        学生・個人開発に最適です。
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <h2>主な機能</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>HTTP / HTTPS 監視</h3>
+      <p>
+        WebサイトやAPIエンドポイントの疎通を定期チェック。
+        ステータスコード・応答結果を記録します。
+      </p>
+    </div>
+    <div class="card">
+      <h3>履歴データの蓄積</h3>
+      <p>
+        各チェック結果は JSON としてリポジトリに保存。
+        過去の稼働状況を後から確認できます。
+      </p>
+    </div>
+    <div class="card">
+      <h3>ステータスページ自動生成</h3>
+      <p>
+        蓄積された結果から HTML を生成し、
+        GitHub Pages で即時公開。
+      </p>
+    </div>
+    <div class="card">
+      <h3>外部ステータスAPI対応</h3>
+      <p>
+        Discord / GitHub / Cloudflare / OpenAI などの
+        公開ステータスAPIを統合表示できます。
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="container section-alt">
+  <h2>利用シーン</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>個人開発・学生プロジェクト</h3>
+      <p>
+        自作サービスに「それっぽい公式ステータスページ」を。
+      </p>
+    </div>
+    <div class="card">
+      <h3>小規模チーム</h3>
+      <p>
+        Slack通知や重厚な監視は不要。
+        まずは可視化から。
+      </p>
+    </div>
+    <div class="card">
+      <h3>OSS プロジェクト</h3>
+      <p>
+        利用者に現在の稼働状況を
+        透明性高く共有できます。
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="container">
+  <h2>Upptime との違い</h2>
+  <div class="card">
+    <ul>
+      <li>より軽量な構成</li>
+      <li>HTML生成・構造を自由に改造可能</li>
+      <li>独自ステータスAPI統合を前提設計</li>
+      <li>日本語環境での利用を強く意識</li>
+    </ul>
+  </div>
+</section>
+
+<section class="container section-alt hero">
+  <h2>今すぐ始める</h2>
+  <img src="https://kotoca.net/KOTOCA.webp" alt="Setup image">
+  <p>
+    リポジトリを fork し、<br>
+    setting.json を編集するだけで運用を開始できます。
+  </p>
+  <a class="button" href="https://github.com/TeamKOTOCA/GitUptimeHub/">GitHub リポジトリを見る</a>
+</section>
+
+<footer>
+  <p>© 2025 GitUptimeHub / Team KOTOCA</p>
+  <p>MIT License · Built on GitHub</p>
+</footer>
+
+</body>
+</html>
