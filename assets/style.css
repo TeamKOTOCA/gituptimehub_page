@@ -7,7 +7,6 @@ body {
   line-height: 1.7;
 }
 .container {
-  max-width: 1000px;
   margin: auto;
   padding: 60px 20px;
 }
@@ -15,8 +14,17 @@ h1 { font-size: 2.6em; margin-bottom: 0.4em; }
 h2 { font-size: 2em; margin-top: 0; }
 h3 { margin-bottom: 0.3em; }
 .hero {
-  text-align: center;
-  background: linear-gradient(135deg, #111, #333);
+  text-align: center;  
+  background:
+    linear-gradient(180deg, #83088726, transparent 40%),
+    repeating-linear-gradient(
+      90deg,
+      #ffffff08,
+      #ffffff08 1px,
+      transparent 2px,
+      transparent 10px
+    ),
+    #0b0b0b;
   color: #fff;
   padding: 80px 20px;
 }
@@ -24,23 +32,54 @@ h3 { margin-bottom: 0.3em; }
   width: 80vw;
   max-width: 400px;
 }
-.topimg {
+.topimg-wrap {
+  position: relative;
   max-width: 700px;
-  width: 100%;
-  margin: 30px 0;
-  background:linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5));
+  margin: 0 auto;
 }
+
+.topimg {
+  display: block;
+  width: 100%;
+}
+
 .button {
   display: inline-block;
-  padding: 14px 26px;
-  background: #2563eb;
-  color: #fff;
+  padding: 12px 32px;
+  margin: 10px auto 50px;
+  background: #fff;
+  color: #000;
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
+  mix-blend-mode: screen;
+}
+.button:hover{
+  background: #ffffffee;
+}
+.about{
+  text-align: center;
+  color: #fff;
+  padding: 80px 20px;
+  background-image: linear-gradient(135deg, #000000ee, #290038ee), url(./gituptimehub.webp);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .section-alt {
-  background: #f7f7f9;
+  text-align: center;
+  color: #fff;
+  padding: 80px 20px;
+  background:
+    linear-gradient(180deg, #83088726, transparent 40%),
+    repeating-linear-gradient(
+      90deg,
+      #ffffff08,
+      #ffffff08 1px,
+      transparent 2px,
+      transparent 10px
+    ),
+    #0b0b0b;
 }
 .grid {
   display: grid;
@@ -48,23 +87,60 @@ h3 { margin-bottom: 0.3em; }
   gap: 20px;
 }
 .card {
-  background: #fff;
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  box-shadow: 0 0 20px #94949422;
+  background-color: #48385255;
 }
 .badge {
   display: inline-block;
-  background: #e5e7eb;
-  color: #111;
+  background: #2e2e2e99;
+  color: #eee;
   padding: 4px 10px;
   border-radius: 999px;
   font-size: 0.85em;
 }
+
+.points{
+  background:
+    linear-gradient(0deg, #83088726, transparent 40%),
+    repeating-linear-gradient(
+      90deg,
+      #ffffff08,
+      #ffffff08 1px,
+      transparent 2px,
+      transparent 10px
+    ),
+    #0b0b0b;
+  color: #eee;
+  text-align: center;
+}
+.card_points{
+  margin-bottom: 40px;
+}
+
+.fin{
+    text-align: center;  
+  background:
+    linear-gradient(0deg, #ab0eb126, transparent 40%),
+    repeating-linear-gradient(
+      90deg,
+      #ffffff08,
+      #ffffff08 1px,
+      transparent 2px,
+      transparent 10px
+    ),
+    #0b0b0b;
+  color: #fff;
+  padding: 80px 20px;
+}
+
 footer {
-  background: #111;
+  background: #14001a;
   color: #ccc;
   text-align: center;
-  padding: 40px 20px;
+  padding: 10px 0;
 }
-footer a { color: #ccc; }
+footer a { color: #999; }
+
+footer a:hover { color: #aaa; }
