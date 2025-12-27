@@ -1,3 +1,36 @@
+window.addEventListener("DOMContentLoaded", () => {
+    const dialog = document.getElementById("whereisrepo");
+    const userInput = document.getElementById("ghUser");
+    const repoInput = document.getElementById("ghRepo");
+
+    const ref = document.referrer;
+
+    if (ref) {
+        // https://github.com/user/repo (以降は無視)
+        const m = ref.match(/^https:\/\/github\.com\/([^\/]+)\/([^\/?#]+)/);
+
+        if (m) {
+        userInput.value = m[1];
+        repoInput.value = m[2];
+        }
+    }
+
+    dialog.showModal();
+});
+
+function closerepodig(){
+    const dialog = document.getElementById("whereisrepo");
+    dialog.close();
+}
+
+document.addEventListener("focusin", e => {
+    //console.log("focus ->", e.target);
+});
+document.addEventListener("focusout", e => {
+    //console.log("blur ->", e.target);
+});
+
+
 /* =====================
    初期データ
 ===================== */
@@ -9,7 +42,7 @@ let data = {
     theme:"dark"
   },
   categories:[
-    {id:"default",label:"default"},
+    {id:"default",label:"既定"},
     {id:"kotoca_services",label:"内部サービス"}
   ],
   targets:[{
@@ -347,7 +380,6 @@ function renderAll(){
   renderMeta();
   renderCategories();
   renderTargets();
-  $("#output-json").value = JSON.stringify(data,null,2);
 }
 
 renderAll();
@@ -359,10 +391,6 @@ document.body.addEventListener("input", e=>{
   const t = e.target;
   if(t.dataset.meta) data.meta[t.dataset.meta] = t.value;
   if(t.dataset.metaColor) data.meta.color[t.dataset.metaColor] = t.value;
-  if(t.dataset.footerField){
-    const i = +t.closest("[data-footer]").dataset.footer;
-    data.meta.footer_links[i][t.dataset.footerField] = t.value;
-  }
   if(t.dataset.categoryLabel){
     const i = +t.closest("[data-category]").dataset.category;
     data.categories[i].label = t.value;
@@ -434,12 +462,6 @@ document.body.addEventListener("click", e=>{
     renderMeta();
   }
 
-  if(t.dataset.footerDelete){
-    const i = +t.closest("[data-footer]").dataset.footer;
-    data.meta.footer_links.splice(i,1);
-    renderMeta();
-  }
-
   if(t.id==="import-text-btn"){
     try{
       data = JSON.parse($("#import-text").value);
@@ -454,4 +476,6 @@ document.body.addEventListener("click", e=>{
     a.download = "data.json";
     a.click();
   }
+  $("#output-json").value = JSON.stringify(data,null,2);
+  console.log(data);
 });
