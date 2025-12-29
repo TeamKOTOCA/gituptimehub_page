@@ -341,6 +341,37 @@ document.body.addEventListener("click", e => {
         a.download = "data.json";
         a.click();
     }
+    if (t.id === "to_next") {
+        const userInput = document.getElementById("ghUser");
+        const repoInput = document.getElementById("ghRepo");
+        const dialog = document.getElementById("whereisrepo");
+        
+        const user = userInput.value.trim();
+        const repo = repoInput.value.trim();
+
+        if (!user || !repo) {
+            dialog.showModal;
+            alert("GitHubのユーザー名とリポジトリ名を入力してください。");
+            return;
+        }
+
+        // 1. JSONデータを文字列化
+        const jsonText = JSON.stringify(data, null, 2);
+
+        // 2. クリップボードに書き込み
+        navigator.clipboard.writeText(jsonText).then(() => {
+            alert("設定JSONをクリップボードにコピーしました。移動先のページで貼り付けてください。");
+
+            // 3. GitHubの編集ページを新しいタブで開く
+            // 注: ブランチ名が 'main' であると仮定しています。'master' の場合は書き換えてください。
+            const editUrl = `https://github.com/${user}/${repo}/edit/main/setting.json`;
+            window.open(editUrl, "_blank");
+            
+        }).catch(err => {
+            console.error("クリップボードへのコピーに失敗しました:", err);
+            alert("コピーに失敗しました。手動でコピーするか、ブラウザの権限を確認してください。");
+        });
+    }
     updateJSON();
 });
 
