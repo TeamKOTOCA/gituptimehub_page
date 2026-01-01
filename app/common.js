@@ -3,6 +3,14 @@ window.addEventListener("DOMContentLoaded", () => {
     const userInput = document.getElementById("ghUser");
     const repoInput = document.getElementById("ghRepo");
 
+    const local_user = localStorage.getItem("User");
+    const local_repo = localStorage.getItem("Repo");
+
+    if (local_user !== null && local_repo !== null) {
+        userInput.value = local_user;
+        repoInput.value = local_repo;
+    }
+
     const ref = document.referrer;
 
     if (ref) {
@@ -23,6 +31,10 @@ async function closerepodig() {
     if (!user || !repo) {
         return;
     }
+
+    localStorage.setItem("User", user);
+    localStorage.setItem("Repo", repo);
+
     const url = `https://raw.githubusercontent.com/${user}/${repo}/main/setting.json`;
     try {
         const res = await fetch(url, { cache: "no-store" });

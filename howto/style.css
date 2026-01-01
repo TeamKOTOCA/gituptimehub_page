@@ -1,0 +1,224 @@
+/* ===== Base ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #0b0b0b;
+  color: #eee;
+  line-height: 1.7;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: #d9a6ff;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #f0d6ff;
+}
+
+/* ===== Layout ===== */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 80px 20px;
+}
+
+/* ===== Header ===== */
+.install-hero {
+  text-align: center;
+  padding: 100px 20px 80px;
+  background:
+    linear-gradient(180deg, #83088730, transparent 45%),
+    repeating-linear-gradient(
+      90deg,
+      #ffffff08,
+      #ffffff08 1px,
+      transparent 2px,
+      transparent 10px
+    ),
+    #0b0b0b;
+}
+
+.install-hero h1 {
+  font-size: 2.6em;
+  margin-bottom: 0.3em;
+}
+
+.install-hero p {
+  color: #ccc;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ===== OS Tabs ===== */
+.os-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.os-tab {
+  padding: 8px 22px;
+  border-radius: 999px;
+  background: #2e2e2eaa;
+  color: #ccc;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.os-tab.active {
+  background: linear-gradient(135deg, #a100c4, #520065);
+  color: #fff;
+}
+
+/* ===== Step ===== */
+.step {
+  margin-bottom: 70px;
+  padding: 36px;
+  border-radius: 10px;
+  background: #1a0f1fdd;
+  box-shadow: 0 0 40px #00000088;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.step-number {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #a100c4, #520065);
+  font-weight: bold;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.step h2 {
+  font-size: 1.9em;
+  margin: 0;
+}
+
+.step p {
+  color: #ddd;
+  margin-bottom: 20px;
+}
+
+/* ===== Code ===== */
+.code-block {
+  background: #0b0b0b;
+  border-radius: 14px;
+  padding: 18px 22px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.95em;
+  overflow-x: auto;
+  box-shadow: inset 0 0 0 1px #ffffff12;
+}
+
+.code-block code {
+  color: #e6c8ff;
+}
+
+/* ===== Image ===== */
+.step-image {
+  margin-top: 28px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 12px 50px #000000aa;
+}
+
+/* ===== Notice ===== */
+.notice {
+  margin-top: 24px;
+  padding: 14px 18px;
+  border-left: 4px solid #a100c4;
+  background: #2a1532cc;
+  color: #f1d9ff;
+  font-size: 0.95em;
+}
+
+/* ===== Links ===== */
+
+/* 基本リンク（本文用） */
+a {
+  color: #d9a6ff;
+  text-decoration: underline;
+  text-decoration-color: #a100c4;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: #f0d6ff;
+  text-decoration-color: #d9a6ff;
+}
+
+/* 外部リンク（視認性重視） */
+a.external {
+  font-weight: 600;
+}
+
+/* ボタン的リンク */
+.link-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 28px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #a100c4, #520065);
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.link-button:hover {
+  background: linear-gradient(135deg, #c000ec, #6b008a);
+}
+
+/* コードブロック内リンク */
+.code-block a {
+  color: #e6c8ff;
+  text-decoration: underline;
+}
+
+.code-block a:hover {
+  color: #ffffff;
+}
+/* ===== Inline code ===== */
+p code,
+li code,
+.notice code {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: #0b0b0b;
+  color: #e6c8ff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.95em;
+  box-shadow: inset 0 0 0 1px #ffffff14;
+}
+
+/* ===== Footer ===== */
+footer {
+  background: #14001a;
+  text-align: center;
+  color: #aaa;
+  padding: 20px 10px;
+  font-size: 0.9em;
+}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使用手順 / GitUptimeHub | GitHubだけで完結するステータスページ</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="./../assets/gituptimehub.webp" type="image/x-icon">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GitUptimeHub">
+    <meta property="og:title" content="GitUptimeHub｜GitHubだけで構築する無料ステータスページ">
+    <meta property="og:description" content="GitHub Actionsだけで完結。外部SaaS不要のオープンソース・ステータスページ。">
+    <meta property="og:image" content="./assets/ogp.webp">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GitUptimeHub｜GitHubだけで構築する無料ステータスページ">
+    <meta name="twitter:description" content="GitHub Actionsだけで完結する、ランニングコスト無料のステータスページ。">
+    <meta name="twitter:image" content="./assets/ogp.webp">
+
+    <meta name="robots" content="index, follow">
+</head>
+
+<body>
+    <header class="install-hero">
+        <h1>使い方</h1>
+        <p>
+            GitUptimeHub を数分でセットアップできます。  
+            手順に従って進めてください。
+        </p>
+    </header>
+
+    <main class="container">
+
+    <section class="step">
+        <div class="step-header">
+        <h2>前提条件</h2>
+        </div>
+        <ul>
+            <li>GitHubアカウントを持っていること。</li>
+        </ul>
+    </section>
+
+    <section class="step">
+        <div class="step-header">
+        <div class="step-number">1</div>
+        <h2>リポジトリをフォーク</h2>
+        </div>
+
+        <p>公式GitHubリポジトリを<a target="_blank" href="https://docs.github.com/ja/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo">フォーク</a>します。</p>
+        <a target="_blank" class="link-button" href="https://github.com/teamkotoca/gituptimehub/fork">リポジトリへ行く</a>
+        <p>
+            OwnerとRepository nameはお好きに決めてください。差し支えがなければそのままで大丈夫です。<br>
+            <code>Copy the main branch only</code>のチェックは外さないでください。<br>
+            <code>Create fork</code>でフォークを完了させてください。
+        </p>
+        <div class="step-image">
+            <img src="./images/step1.png" alt="fork">
+        </div>
+    </section>
+
+    <section class="step">
+        <div class="step-header">
+        <div class="step-number">2</div>
+        <h2>いろいろな機能の有効化</h2>
+        </div>
+
+        <p>
+            フォークが終わったら、フォークした自分のリポジトリに行き、いくつかの機能を有効化させる必要があります。<br>
+            まず、<code>actions</code>タブを開き、真ん中の翠のボタンを押してGithub Workflowsを有効化してください。
+        </p>
+
+        <div class="step-image">
+        <img src="./images/step2.png" alt="enable">
+        </div>
+        <p>左側の<code>health check flow</code>を押して、<code>Enable workflow</code>を押してください。</p>
+        <div class="step-image">
+        <img src="./images/step2_2.png" alt="enable">
+        </div>
+        <div class="step-image">
+        <img src="./images/step2_3.png" alt="enable">
+        </div>
+    </section>
+
+    <section class="step">
+        <div class="step-header">
+        <div class="step-number">3</div>
+        <h2>設定画面へ</h2>
+        </div>
+
+        <p>
+            フォークが終わったら、フォークした自分のリポジトリに行き、スクロールします。<br>
+            <code>README</code>の下にある、<code>Step2はこちら</code>のリンクを押してください。
+        </p>
+
+        <div class="step-image">
+        <img src="./images/step3.png" alt="clone">
+        </div>
+    </section>
+
+    <section class="step">
+        <div class="step-header">
+        <div class="step-number">4</div>
+        <h2>設定する</h2>
+        </div>
+
+        <p>規定で入力されている内容が合っていれば<code>決定</code>を押して進んでください。</p>
+        
+        <div class="step-image">
+        <img src="./images/step4.png" alt="clone">
+        </div>
+        
+        <p><code>基本情報</code>と<code>カテゴリー</code>と<code>ターゲット</code>をお好みに変更してください。</p>
+        
+        <div class="step-image">
+        <img src="./images/step4_2.png" alt="clone">
+        </div>
+        
+        <div class="notice">
+            この情報がステータスページの元になります。
+        </div>
+    </section>
+
+    <section class="step">
+        <div class="step-header">
+        <div class="step-number">5</div>
+        <h2>保存</h2>
+        </div>
+
+        <p>入力を終えたら、最下までスクロールし、<code>GitHubにコピペ</code>を押してください。</p>
+
+        <div class="step-image">
+        <img src="./images/step5.png" alt="run">
+        </div>
+
+        <p>ページを移動したらテキスト入力欄があると思うので、そこに書いてある内容をすべて削除して貼り付けをしてください。</p>
+
+        <div class="step-image">
+        <img src="./images/step5_2.png" alt="run">
+        </div>
+
+        <p>終わったら右上の翠のボタンを押して保存してください。</p>
+
+        <div class="step-image">
+        <img src="./images/step5_3.png" alt="run">
+        </div>
+
+        <p>数分(約三分)待ってください。</p>
+    </section>
+
+    <section class="step">
+        <div class="step-header">
+        <div class="step-number">6</div>
+        <h2>GitHub pagesの有効化</h2>
+        </div>
+
+        <p><code>Setting</code>タブを開き、<code>Pages</code>ページを開いてください</p>
+        <div class="step-image">
+        <img src="./images/step6.png" alt="run">
+        </div>
+
+        <p>画像のように<code>Branch</code>の下にある<code>None</code>を押し、出てきた<code>gh-pages</code>を選択し、右のsaveを押してください。</p>
+    </section>
+
+    <section class="step">
+        <div class="step-header">
+        <div class="step-number">7</div>
+        <h2>待つ</h2>
+        </div>
+
+        <p>1~5分程度待つと、github pagesにデータが上がってくるのでそれを待ちましょう。</p>
+        <p>完成したステータスページは、<code>https://{あなたのユーザー名}.github.io/{リポジトリ名}</code>です。</p>
+    </section>
+
+    <section class="step">
+        <div class="step-header">
+        <h2>補足</h2>
+        </div>
+
+        <p>独自ドメインを使いたい方は<a target="_blank" href="https://docs.github.com/ja/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages">公式ガイド</a>を参考に設定してください。</p>
+    </section>
+    </main>
+
+    <footer>
+        <p>© 2025 <a target="_blank" href="https://kotoca.net">Team KOTOCA</a></p>
+    </footer>
+
+</body>
+</html>
