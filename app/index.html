@@ -4,15 +4,139 @@
 <meta charset="UTF-8">
 <title>GitUptimeHub設定ファイルジェネレーター</title>
 <style>
-body { font-family: sans-serif; background:#fff; color:#222; margin:0; padding:20px; }
-h1,h2 { margin:10px 0; }
-section { margin-bottom:20px; border:1px solid #555; padding:10px; border-radius:5px; }
-label { display:block; margin-top:5px; }
-input, select, textarea { width:100%; margin-top:2px; padding:10px; }
-button { margin-top:5px; }
-textarea { height:200px; background:#111; color:#eee; }
-hr { border:1px solid #555; margin:10px 0; }
-.target { padding:10px; border:1px solid #777; border-radius:5px; margin-bottom:10px; }
+  :root {
+  --bg: #0f1115;
+  --panel: #161a22;
+  --panel-border: #2a2f3a;
+  --text: #e6e8eb;
+  --subtext: #9aa0aa;
+  --accent: #4f8cff;
+  --danger: #ff5f5f;
+  --radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 20px;
+}
+
+/* 見出し */
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+/* セクションカード */
+section {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+/* ラベルと入力 */
+label {
+  font-size: 0.85rem;
+  color: var(--subtext);
+  margin-top: 12px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  background: #0c0f14;
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 10px;
+  margin-top: 4px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* チェックボックス */
+input[type="checkbox"] {
+  width: auto;
+  margin-left: 8px;
+  transform: scale(1.1);
+}
+
+/* ボタン */
+button {
+  background: #1e2533;
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #263048;
+  border-color: var(--accent);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+/* 危険操作 */
+button:has-text("Delete"),
+button:has-text("削除") {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* ターゲットカード */
+.target {
+  background: #0c0f14;
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+/* JSON出力 */
+textarea#output-json {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.85rem;
+  background: #05070b;
+}
+
+/* dialog */
+dialog {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
 </style>
 </head>
 <body>
