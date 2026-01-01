@@ -136,6 +136,90 @@ dialog {
 dialog::backdrop {
   background: rgba(0, 0, 0, 0.6);
 }
+/* ===============================
+   Responsive (Mobile First)
+   =============================== */
+
+@media (max-width: 768px) {
+
+  body {
+    padding: 12px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  h2 {
+    font-size: 1.05rem;
+  }
+
+  section {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  /* 入力系：指で操作しやすく */
+  input,
+  select,
+  textarea {
+    font-size: 16px; /* iOSズーム防止 */
+    padding: 12px;
+  }
+
+  textarea {
+    height: 160px;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+
+  /* ターゲットカード */
+  .target {
+    padding: 12px;
+  }
+
+  /* label間隔を詰める */
+  label {
+    margin-top: 8px;
+  }
+
+  /* checkbox横並び対策 */
+  label > input[type="checkbox"] {
+    margin-left: 12px;
+  }
+
+  /* dialog */
+  dialog {
+    width: 90%;
+    max-width: none;
+  }
+}
+
+/* ===============================
+   超小型端末（スマホ縦）
+   =============================== */
+@media (max-width: 480px) {
+
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  section {
+    padding: 10px;
+  }
+
+  .target {
+    padding: 10px;
+  }
+
+  textarea#output-json {
+    font-size: 0.8rem;
+  }
+}
 
 </style>
 </head>
